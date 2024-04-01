@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.solventek.ProdcutsRepo.InsuranceBoughtRepo;
 import com.solventek.ProdcutsRepo.ProductsRepo;
 import com.solventek.ProductsEntities.Insurance;
+import com.solventek.ProductsEntities.InsuranceBought;
 
 @RestController
 @RequestMapping("/products")
@@ -27,6 +29,9 @@ public class ProductsController {
 	
 	@Autowired
 	ProductsRepo productsRepo;
+	
+	@Autowired
+	InsuranceBoughtRepo ibr;
 	
 	@PostMapping("/add")
 	public ResponseEntity<String> createInsurance(@RequestBody Insurance insurance) {
@@ -57,6 +62,12 @@ public class ProductsController {
 	    System.out.println(insurance+"*****");
 		return new ResponseEntity<Insurance>(HttpStatus.ACCEPTED);
 		
+	}
+	
+	@PostMapping("/insbht")
+	public void insuranceBought(@RequestBody InsuranceBought ib) {
+		System.out.println(ib+"*********************************");
+		ibr.save(ib);
 	}
 	
 
